@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --orange: hsl(26, 100%, 55%);
+        --pale-orange: hsl(25, 100%, 94%);
+        --very-dark-blue: hsl(220, 13%, 13%);
+        --dark-grayish-blue: hsl(219, 9%, 45%);
+        --grayish-blue: hsl(220, 14%, 75%);
+        --light-grayish-blue: hsl(223, 64%, 98%);
+        --white: hsl(0, 0%, 100%);
+        --black: hsl(0, 0%, 0%);
+    }
+    @font-face {
+        font-family: "Kumbh Sans";
+        src: url(../fonts/KumbhSans-VariableFont_YOPQ\,wght.ttf) format("truetype");
+        font-weight: 400;
+        font-display: swap;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: "Kumbh Sans";
+        src: url(../fonts/KumbhSans-VariableFont_YOPQ\,wght.ttf) format("truetype");
+        font-weight: 700;
+        font-display: swap;
+        font-style: normal;
+    }
+    body {
+        @apply font-kumbhsans flex  flex-col min-h-screen 
+    }
+    header {
+        @apply w-full flex justify-between items-center py-6 px-6;
+    }
+}
+
+@layer components {
+    .header-left {
+        @apply flex gap-4 items-end 
+    }
+    .logo {
+        @apply w-32
+    }
+    .header-right {
+        @apply flex items-center gap-6
+    }
+    .profile-pic {
+        @apply h-6 w-6
+    }
+    .image-container {
+        @apply relative overflow-hidden h-72
+    }
+    .main-img {
+        @apply object-center object-cover w-full h-full
+    }
+    .img-btn {
+        @apply  absolute z-20 rounded-full bg-pale-orange h-9 w-9 flex items-center justify-center
+    }
+    .img-btn > img {
+        @apply h-3
+    }
+    .previous-btn {
+        @apply left-2 top-1/2
+    }
+    .next-btn {
+        @apply right-2 top-1/2
+    }
+
+}

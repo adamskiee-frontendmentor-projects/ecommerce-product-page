@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./build/images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | E-commerce product page</title>
+
+  <link rel="stylesheet" href="./build/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <button type="button" class="mobile-menu" aria-controls="Mobile Menu" aria-expanded="false" aria-label="Menu Button">
+        <img src="./build/images/icon-menu.svg" alt="" class="menu-icon">
+      </button>
+      <img src="./build/images/logo.svg" class="logo" alt="logo">
+      <nav class="hidden">
+        <ul>
+          <li><a href="">Collections</a></li>
+          <li><a href="">Men</a></li>
+          <li><a href="">Women</a></li>
+          <li><a href="">About</a></li>
+          <li><a href="">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="header-right">
+      <button type="button" aria-label="Cart" aria-expanded="false">
+        <img src="./build/images/icon-cart.svg" alt="">
+        <span class="cart-count"></span>
+        <div class="cart-body hidden" aria-live="polite">
+          <span>Cart</span>
+          <div class="products-cart" id="products-cart">
+            <span id="empty-card-msg">Your cart is empty</span>
+          </div>
+        </div>
+      </button>
+      <button type="button" aria-activedescendant="Profile Picture">
+        <img src="./build/images/image-avatar.png" class="profile-pic" alt="">
+      </button>
+    </div>
+  </header>
+  <main>
+    <section class="image-container">
+      <img class="main-img" id="main-img" src="./build/images/image-product-1.jpg" alt="">
+      <button class="previous-btn img-btn">
+        <img src="./build/images/icon-previous.svg" alt="">
+      </button>
+      <button class="next-btn img-btn">
+        <img src="./build/images/icon-next.svg" alt="">
+      </button>
+    </section>
+    <section class="content">
+      <span>Sneaker Company</span>
+      <h1>Fall Limited Edition Sneakers</h1>
+      <p>These low-profile sneakers are your perfect casual wear companion. Featuring a durable rubber outer sole, they'll withstand everything the weather can offer.</p>
+      <div class="price-container">
+        <h2 class="price">$125.00</h2>
+        <span class="discount">50%</span>
+        <span class="previous-price">$250.00</span>
+      </div>
+      <form id="cart-form">
+        <div>
+          <button type="button" aria-label="Minus" class="minus-icon Remove 1 order"><img src="./build/images/icon-minus.svg" alt=""></button>
+          <input type="num" name="order-num" id="order-num" value="0" disabled>
+          <button type="button" class="plus-icon order-num-icon" aria-label="Add 1 order"><img src="./build/images/icon-plus.svg" alt=""></button>
+        </div>
+        <div>
+          <button type="submit" class="primary-btn">
+            <img src="./build/images/icon-cart.svg" alt="">
+            <span class="btn-text">Add to cart</span>
+          </button>
+        </div>
+      </form>
+    </section>
+    <dialog class="menu-dialog" id="menu-dialog">
+      <div class="dialog-content" aria-live="polite">
+        <button type="button" aria-label="Close Button">
+          <img src="./build/images/icon-close.svg" alt="">
+        </button>
+        <ul>
+          <li><a href="">Collections</a></li>
+          <li><a href="">Men</a></li>
+          <li><a href="">Women</a></li>
+          <li><a href="">About</a></li>
+          <li><a href="">Contact</a></li>
+        </ul>
+      </div>
+    </dialog>
+  </main>
+</body>
+<script src="./src/js/main.js" defer></script>
+</html>
