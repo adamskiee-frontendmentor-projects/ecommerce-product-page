@@ -28,43 +28,169 @@
         font-style: normal;
     }
     body {
-        @apply font-kumbhsans flex  flex-col min-h-screen 
+        @apply font-kumbhsans flex flex-col min-h-screen justify-center items-center
     }
     header {
         @apply w-full flex justify-between items-center py-6 px-6;
     }
+    main, header{ 
+        @apply max-w-6xl
+    }
+    main {
+        @apply flex-grow flex flex-col desktop:grid desktop:grid-cols-2 desktop:items-center
+    }
+    dialog {
+        @apply hidden;
+    }
+    dialog[open] {
+        @apply block
+    }
 }
 
 @layer components {
+    /* Layouts */
     .header-left {
-        @apply flex gap-4 items-end 
+        @apply flex gap-4 items-end desktop:gap-12
     }
     .logo {
-        @apply w-32
+        @apply w-36
     }
     .header-right {
-        @apply flex items-center gap-6
+        @apply flex items-center gap-6 desktop:gap-12
     }
     .profile-pic {
-        @apply h-6 w-6
+        @apply h-6 w-6 desktop:h-16 desktop:w-16
     }
+    
     .image-container {
-        @apply relative overflow-hidden h-72
+        @apply relative overflow-hidden h-72 desktop:hidden
     }
     .main-img {
-        @apply object-center object-cover w-full h-full
+        @apply object-center object-cover w-full h-full 
+    }
+    .desktop-image-container {
+        @apply hidden desktop:grid
+    }
+    
+    .content {
+        @apply flex flex-col p-6 flex-grow justify-between
+    }
+    .price-container {
+        @apply grid grid-cols-[auto_1fr_auto] items-center gap-x-3
+    }
+    
+    .cart-form {
+        @apply flex flex-col gap-4
+    }
+    .order-num-container {
+        @apply relative
+    }
+    .order-num-input {
+        @apply text-center w-full font-bold py-4 bg-light-grayish-blue text-very-dark-blue rounded-lg
+    }
+    
+    /* Cart styles */
+    .cart-count {
+        @apply absolute text-xs -top-2 bg-orange text-white -right-2 px-2 rounded-full font-bold
+    }
+    .cart-body {
+        @apply fixed z-30 bg-white left-2 right-2 top-20 text-left rounded-lg flex flex-col shadow-lg
+    }
+    .cart-body > h2 {
+        @apply font-bold px-6 py-6 border-b-light-grayish-blue border-b-2 text-very-dark-blue
+    }
+    .cart-products {
+        @apply flex flex-col items-center justify-center flex-grow gap-6 p-6
+    }
+    .cart-product {
+        @apply flex flex-col
+    }
+    .product-content {
+        @apply grid grid-cols-[auto_1fr_auto] grid-rows-[auto_auto] gap-x-4 text-dark-grayish-blue
+    }
+    .thumbnail {
+        @apply row-span-2 rounded
+    }
+
+    /* Buttons */
+    .cart-btn {
+        @apply relative flex-grow
+    }
+    .order-num-btn {
+        @apply px-2
     }
     .img-btn {
-        @apply  absolute z-20 rounded-full bg-pale-orange h-9 w-9 flex items-center justify-center
+        @apply z-20 rounded-full bg-white h-9 w-9 flex items-center justify-center
     }
     .img-btn > img {
         @apply h-3
     }
-    .previous-btn {
-        @apply left-2 top-1/2
+    .primary-btn {
+        @apply bg-orange w-full flex items-center justify-center py-5 rounded-lg font-bold gap-4 text-very-dark-blue
     }
-    .next-btn {
-        @apply right-2 top-1/2
+    .delete-btn {
+        @apply row-span-2
+    }
+    .mobile-menu-btn {
+        @apply desktop:hidden
     }
 
+    /* Menus */
+    .menu-content {
+        @apply max-h-full p-6 flex flex-col gap-14
+    }
+    .nav-links {
+        @apply flex flex-col gap-4 desktop:flex-row desktop:gap-10
+    }
+
+    .mobile-menu {
+        @apply absolute left-0 right-32 w-auto bg-white z-50 h-screen m-0 max-h-screen
+    }
+    .mobile-menu::backdrop {
+        background-color: rgba(0,0,0,.5);
+    }
+    .desktop-menu {
+        @apply hidden desktop:flex
+    }
+
+    /* Text styles */
+    .product-content .price {
+        @apply text-base text-dark-grayish-blue font-normal
+    }
+    .product-content .total {
+        @apply font-bold text-very-dark-blue
+    }
+    .product-company {
+        @apply uppercase text-xs font-bold text-dark-grayish-blue tracking-widest
+    }
+    .product-name {
+        @apply font-bold text-[1.60rem] leading-7 text-very-dark-blue
+    }
+    .product-description {
+        @apply text-dark-grayish-blue text-[15px]
+    }
+    .price {
+        @apply font-bold text-3xl text-very-dark-blue
+    }
+    .discount {
+        @apply bg-very-dark-blue text-white w-fit h-fit text-center rounded-lg font-bold py-0.5 px-2
+    }
+    .previous-price {
+        @apply font-bold text-dark-grayish-blue line-through
+    }
+    .nav-link {
+        @apply font-bold desktop:font-normal desktop:text-dark-grayish-blue
+    }
+}
+
+@layer utilities {
+    .empty-card-msg {
+       @apply text-dark-grayish-blue font-bold py-14
+    }
+    .overlay {
+        @apply absolute inset-0 flex items-center justify-between px-4 pointer-events-none
+    }
+    .overlay > * {
+        @apply pointer-events-auto
+    }
 }
