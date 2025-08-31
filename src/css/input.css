@@ -5,6 +5,7 @@
 @layer base {
     :root {
         --orange: hsl(26, 100%, 55%);
+        --hover-orange: hsl(26, 89%, 65%);
         --pale-orange: hsl(25, 100%, 94%);
         --very-dark-blue: hsl(220, 13%, 13%);
         --dark-grayish-blue: hsl(219, 9%, 45%);
@@ -28,10 +29,10 @@
         font-style: normal;
     }
     body {
-        @apply font-kumbhsans flex flex-col min-h-screen justify-center items-center
+        @apply font-kumbhsans flex flex-col min-h-screen justify-center items-center desktop:gap-4
     }
     header {
-        @apply w-full flex justify-between items-center py-6 px-6;
+        @apply w-full flex justify-between items-center py-6 px-6 desktop:border-b desktop:border-b-grayish-blue;
     }
     main, header{ 
         @apply max-w-6xl
@@ -39,6 +40,8 @@
     main {
         @apply flex-grow flex flex-col desktop:grid desktop:grid-cols-2 desktop:items-center
     }
+
+    /* JS fallback */
     dialog {
         @apply hidden;
     }
@@ -48,7 +51,7 @@
 }
 
 @layer components {
-    /* Layouts */
+    /* Header layout */
     .header-left {
         @apply flex gap-4 items-end desktop:gap-12
     }
@@ -59,42 +62,75 @@
         @apply flex items-center gap-6 desktop:gap-12
     }
     .profile-pic {
-        @apply h-6 w-6 desktop:h-16 desktop:w-16
+        @apply h-6 w-6 desktop:h-12 desktop:w-12
     }
     
+    /* Images layout */
     .image-container {
         @apply relative overflow-hidden h-72 desktop:hidden
     }
-    .main-img {
+    .image-container .main-img {
         @apply object-center object-cover w-full h-full 
     }
     .desktop-image-container {
-        @apply hidden desktop:grid
+        @apply hidden desktop:grid desktop:grid-rows-[auto_auto] desktop:grid-cols-4 desktop:max-w-full desktop:px-20 desktop:gap-6
+    }
+    .desktop-image-container .main-img {
+        @apply w-full
+    }
+    .desktop-image-container .main-img-btn {
+        @apply col-span-4
+    }
+    .desktop-image-container img {
+        @apply max-w-full h-auto rounded-lg 
     }
     
+    /* Content layout */
     .content {
-        @apply flex flex-col p-6 flex-grow justify-between
+        @apply flex flex-col p-6 flex-grow justify-between desktop:px-14 desktop:gap-6
+    }
+    .content > h1 {
+        @apply desktop:mb-4
     }
     .price-container {
-        @apply grid grid-cols-[auto_1fr_auto] items-center gap-x-3
+        @apply grid grid-cols-[auto_1fr_auto] desktop:grid-cols-[auto_1fr] items-center gap-x-3 desktop:gap-y-3
     }
-    
     .cart-form {
-        @apply flex flex-col gap-4
+        @apply flex flex-col gap-4 desktop:grid desktop:grid-cols-[1fr_2fr]
     }
     .order-num-container {
         @apply relative
     }
     .order-num-input {
-        @apply text-center w-full font-bold py-4 bg-light-grayish-blue text-very-dark-blue rounded-lg
+        @apply text-center w-full font-bold py-4 bg-light-grayish-blue cursor-default text-very-dark-blue rounded-lg h-full outline-none
+    }
+
+    /* Lightbox dialog layout*/
+    .lightbox-dialog {
+        @apply max-w-2xl bg-transparent
+    }
+    .lightbox-content {
+        @apply h-full flex flex-col
+    }
+    .lightbox-close-btn {
+        @apply flex justify-end
+    }
+    .lightbox-content .desktop-image-container .image-container {
+        @apply col-span-4 h-auto overflow-visible
+    }
+    .desktop-image-container .image-container .overlay {
+        @apply -inset-x-8
     }
     
-    /* Cart styles */
+    /* Popup cart layout*/
     .cart-count {
         @apply absolute text-xs -top-2 bg-orange text-white -right-2 px-2 rounded-full font-bold
     }
+    .cart-popover {
+        @apply desktop:relative
+    }
     .cart-body {
-        @apply fixed z-30 bg-white left-2 right-2 top-20 text-left rounded-lg flex flex-col shadow-lg
+        @apply fixed z-30 bg-white left-2 right-2 top-20 text-left rounded-lg flex flex-col shadow-lg desktop:absolute desktop:w-96 desktop:top-10 desktop:left-1/2 desktop:-translate-x-1/2 desktop:-right-8
     }
     .cart-body > h2 {
         @apply font-bold px-6 py-6 border-b-light-grayish-blue border-b-2 text-very-dark-blue
@@ -106,7 +142,7 @@
         @apply flex flex-col
     }
     .product-content {
-        @apply grid grid-cols-[auto_1fr_auto] grid-rows-[auto_auto] gap-x-4 text-dark-grayish-blue
+        @apply grid grid-cols-[auto_1fr_auto] grid-rows-[auto_auto] gap-x-4 text-dark-grayish-blue w-full
     }
     .thumbnail {
         @apply row-span-2 rounded
@@ -114,10 +150,15 @@
 
     /* Buttons */
     .cart-btn {
-        @apply relative flex-grow
+        @apply relative flex-grow outline-none rounded-full
     }
+    /* TODO: Hover cart button and show the list of items */
+    .profile-pic-btn {
+        @apply rounded-full border-2 outline-none
+    }
+    
     .order-num-btn {
-        @apply px-2
+        @apply px-2 
     }
     .img-btn {
         @apply z-20 rounded-full bg-white h-9 w-9 flex items-center justify-center
@@ -126,7 +167,7 @@
         @apply h-3
     }
     .primary-btn {
-        @apply bg-orange w-full flex items-center justify-center py-5 rounded-lg font-bold gap-4 text-very-dark-blue
+        @apply bg-orange w-full flex items-center justify-center py-5 rounded-lg font-bold gap-4 text-very-dark-blue 
     }
     .delete-btn {
         @apply row-span-2
@@ -134,20 +175,19 @@
     .mobile-menu-btn {
         @apply desktop:hidden
     }
+    .thumbnail-btn {
+        @apply rounded-lg border-2 border-transparent
+    }
 
     /* Menus */
     .menu-content {
         @apply max-h-full p-6 flex flex-col gap-14
     }
     .nav-links {
-        @apply flex flex-col gap-4 desktop:flex-row desktop:gap-10
+        @apply flex flex-col gap-4 desktop:flex-row desktop:gap-6
     }
-
     .mobile-menu {
         @apply absolute left-0 right-32 w-auto bg-white z-50 h-screen m-0 max-h-screen
-    }
-    .mobile-menu::backdrop {
-        background-color: rgba(0,0,0,.5);
     }
     .desktop-menu {
         @apply hidden desktop:flex
@@ -161,13 +201,13 @@
         @apply font-bold text-very-dark-blue
     }
     .product-company {
-        @apply uppercase text-xs font-bold text-dark-grayish-blue tracking-widest
+        @apply uppercase text-xs font-bold text-dark-grayish-blue tracking-widest desktop:text-sm desktop:tracking-[.15rem]
     }
     .product-name {
-        @apply font-bold text-[1.60rem] leading-7 text-very-dark-blue
+        @apply font-bold text-[1.60rem] leading-7 text-very-dark-blue desktop:text-5xl
     }
     .product-description {
-        @apply text-dark-grayish-blue text-[15px]
+        @apply text-dark-grayish-blue text-[15px] desktop:text-base
     }
     .price {
         @apply font-bold text-3xl text-very-dark-blue
@@ -179,7 +219,7 @@
         @apply font-bold text-dark-grayish-blue line-through
     }
     .nav-link {
-        @apply font-bold desktop:font-normal desktop:text-dark-grayish-blue
+        @apply font-bold desktop:font-normal desktop:text-dark-grayish-blue relative outline-none
     }
 }
 
@@ -187,10 +227,75 @@
     .empty-card-msg {
        @apply text-dark-grayish-blue font-bold py-14
     }
+
+    /* Overlay for mobile menu */
     .overlay {
         @apply absolute inset-0 flex items-center justify-between px-4 pointer-events-none
     }
     .overlay > * {
         @apply pointer-events-auto
+    }
+
+    /* Hide the spin component of input  */
+    .order-num-input::-webkit-outer-spin-button,
+    .order-num-input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    .order-num-input[type="number"] {
+        appearance: textfield;
+    }
+
+    /* Thumbnail state */
+    .thumbnail-btn:focus img,
+    .thumbnail-btn:hover img {
+        @apply opacity-20
+    }
+    .thumbnail-btn-focus {
+        @apply border-orange bg-white
+    }
+    .thumbnail-focus {
+        @apply opacity-20
+    }
+
+    /* Button state */
+    .primary-btn:focus,
+    .primary-btn:hover {
+        @apply bg-hover-orange
+    }
+    .order-num-btn:focus,
+    .order-num-btn:hover{
+        @apply opacity-50
+    }
+    .profile-pic-btn:hover,
+    .profile-pic-btn:focus {
+        @apply border-orange
+    }
+    .thumbnail-btn:focus,
+    .thumbnail-btn:hover {
+        @apply bg-white
+    }
+
+    /* Navigation links hover state */
+    .nav-link::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 4px;
+        background: orange;
+        top: 270%;
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform .5s;
+    }
+    .nav-link:hover::before,
+    .nav-link:focus::before {
+        transform: scaleX(1);
+        transform-origin: center;
+    }
+
+    /* Overlay when dialog open */
+    dialog::backdrop {
+        background: rgba(0,0,0,0.5);
     }
 }

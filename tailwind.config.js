@@ -21,6 +21,7 @@ export default {
       },
       colors: {
         "orange": "var(--orange)",
+        "hover-orange": "var(--hover-orange)",
         "pale-orange": "var(--pale-orange)",
         "very-dark-blue": "var(--very-dark-blue)",
         "dark-grayish-blue": "var(--dark-grayish-blue)",
