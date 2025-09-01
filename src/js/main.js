@@ -47,64 +47,123 @@ class EcommerceProduct {
     this.renderUi();
   }
   bindEvents() {
-    this.elements.mobileMenuOpenBtn.addEventListener("click", () => {
-      this.elements.mobileMenu.showModal();
-      this.elements.mobileMenuOpenBtn.setAttribute("aria-expanded", "true");
-    });
+    const eventBindings = [
+      {
+        key: "mobileMenuOpenBtn",
+        event: "click",
+        handler: () => {
+          this.elements.mobileMenu.showModal();
+          this.elements.mobileMenuOpenBtn.setAttribute("aria-expanded", "true");
+          this.elements.mobileMenuCloseBtn.focus();
+        },
+      },
+      {
+        key: "mobileMenuCloseBtn",
+        event: "click",
+        handler: () => {
+          this.elements.mobileMenu.close();
+          this.elements.mobileMenuOpenBtn.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+        },
+      },
+      {
+        key: "cartBtn",
+        event: "click",
+        handler: (e) => {
+          e.stopPropagation();
+          this.toggleCart();
+        },
+      },
+      {
+        key: "orderAddBtn",
+        event: "click",
+        handler: () => {
+          this.elements.orderNum.value++;
+        },
+      },
+      {
+        key: "orderMinusBtn",
+        event: "click",
+        handler: () => {
+          if (this.elements.orderNum.value <= 0) return;
+          this.elements.orderNum.value--;
+        },
+      },
+      {
+        key: "nextImgBtn",
+        event: "click",
+        handler: () => {
+          this.mobileNextImg(this.elements.mainImg);
+        },
+      },
+      {
+        key: "lightBoxNextImgBtn",
+        event: "click",
+        handler: () => {
+          this.nextImg(this.elements.lightBoxMainImg);
+        },
+      },
+      {
+        key: "lightBoxPreviousImgBtn",
+        event: "click",
+        handler: () => {
+          this.previousImg(this.elements.lightBoxMainImg);
+        },
+      },
+      {
+        key: "previousImgBtn",
+        event: "click",
+        handler: () => {
+          this.mobilePreviousImg(this.elements.mainImg);
+        },
+      },
+      {
+        key: "mainImgBtn",
+        event: "click",
+        handler: () => {
+          this.elements.lightboxDialog.showModal();
 
-    this.elements.mobileMenuCloseBtn.addEventListener("click", () => {
-      this.elements.mobileMenu.close();
-      this.elements.mobileMenuOpenBtn.setAttribute("aria-expanded", "false");
-    });
+          this.elements.lightBoxCloseBtn.focus();
+          // Update the lightbox product images state
+          this.activateProductImg(
+            this.elements.lightboxDialog.querySelector(
+              `.thumbnail-btn[data-product="${this.state.currentActiveProductThumbnail}"]`
+            )
+          );
+        },
+      },
+      {
+        key: "lightBoxCloseBtn",
+        event: "click",
+        handler: () => {
+          this.elements.lightboxDialog.close();
 
-    this.elements.cartBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      this.toggleCart();
-    });
+          // Update the desktop product images state
+          this.activateProductImg(
+            document
+              .querySelector(".desktop-image-container")
+              .querySelector(
+                `.thumbnail-btn[data-product="${this.state.currentActiveProductThumbnail}"]`
+              )
+          );
+        },
+      },
+      {
+        key: "cartProducts",
+        event: "click",
+        handler: (e) => {
+          if (e.target.closest(".delete-btn")) {
+            this.deleteProductContent();
+          }
+        },
+      },
+    ];
 
-    this.elements.orderAddBtn.addEventListener("click", () => {
-      this.elements.orderNum.value++;
-    });
-
-    this.elements.orderMinusBtn.addEventListener("click", () => {
-      if (this.elements.orderNum.value <= 0) return;
-      this.elements.orderNum.value--;
-    });
-
-    this.elements.cartForm.addEventListener("submit", (e) => {
-      e.preventDefault(e);
-
-      const data = Object.fromEntries(new FormData(e.target));
-      if (Number(data["order-num"]) === 0) {
-        return;
-      }
-
-      if (this.state.orderQuantity === 0) {
-        // Add product order in the cart
-        this.renderProductContent();
-        this.addOrderQuantity(Number(data["order-num"]));
-      } else {
-        // Update quantity and total of existing product in the cart
-        this.addOrderQuantity(Number(data["order-num"]));
-      }
-      this.elements.cartCount.textContent = this.state.orderQuantity;
-      this.elements.cartForm.reset();
-    });
-
-    this.elements.nextImgBtn.addEventListener("click", () => {
-      this.nextImg(this.elements.mainImg);
-    });
-
-    this.elements.lightBoxNextImgBtn.addEventListener("click", () => {
-      this.nextImg(this.elements.lightBoxMainImg);
-    });
-
-    this.elements.lightBoxPreviousImgBtn.addEventListener("click", () => {
-      this.previousImg(this.elements.lightBoxMainImg);
-    });
-
-    this.elements.previousImgBtn.addEventListener("click", () => {
-      this.previousImg(this.elements.mainImg);
+    eventBindings.forEach(({ key, event, handler }) => {
+      const element = this.elements[key];
+      if (element) element.addEventListener(event, handler);
     });
 
     document.addEventListener("click", (e) => {
@@ -126,34 +185,24 @@ class EcommerceProduct {
       }
     });
 
-    this.elements.mainImgBtn.addEventListener("click", () => {
-      this.elements.lightboxDialog.showModal();
+    this.elements.cartForm.addEventListener("submit", (e) => {
+      e.preventDefault(e);
 
-      this.elements.lightBoxCloseBtn.focus();
-      // Update the lightbox product images state
-      this.activateProductImg(
-        this.elements.lightboxDialog.querySelector(
-          `.thumbnail-btn[data-product="${this.state.currentActiveProductThumbnail}"]`
-        )
-      );
-    });
-    this.elements.lightBoxCloseBtn.addEventListener("click", () => {
-      this.elements.lightboxDialog.close();
-
-      // Update the desktop product images state
-      this.activateProductImg(
-        document
-          .querySelector(".desktop-image-container")
-          .querySelector(
-            `.thumbnail-btn[data-product="${this.state.currentActiveProductThumbnail}"]`
-          )
-      );
-    });
-
-    this.elements.cartProducts.addEventListener("click", (e) => {
-      if (e.target.closest(".delete-btn")) {
-        this.deleteProductContent();
+      const data = Object.fromEntries(new FormData(e.target));
+      if (Number(data["order-num"]) === 0) {
+        return;
       }
+
+      if (this.state.orderQuantity === 0) {
+        // Add product order in the cart
+        this.renderProductContent();
+        this.addOrderQuantity(Number(data["order-num"]));
+      } else {
+        // Update quantity and total of existing product in the cart
+        this.addOrderQuantity(Number(data["order-num"]));
+      }
+      this.elements.cartCount.textContent = this.state.orderQuantity;
+      this.elements.cartForm.reset();
     });
   }
 
@@ -169,8 +218,6 @@ class EcommerceProduct {
         `.thumbnail-btn[data-product= "${this.state.currentActiveProductThumbnail}"]`
       )
     );
-
-    this.elements.lightboxDialog.showModal();
   }
 
   addOrderQuantity(quantity) {
@@ -182,6 +229,27 @@ class EcommerceProduct {
     document.getElementById("total").textContent = (
       this.state.orderQuantity * this.state.productPrice
     ).toFixed(2);
+  }
+
+  mobilePreviousImg(mainImg) {
+    if (this.state.currentImageIndex === 0)
+      this.state.currentImageIndex = this.state.images.length - 1;
+    else this.state.currentImageIndex--;
+
+    mainImg.setAttribute(
+      "src",
+      this.state.images[this.state.currentImageIndex]
+    );
+  }
+  mobileNextImg(mainImg) {
+    if (this.state.currentImageIndex === this.state.images.length - 1)
+      this.state.currentImageIndex = 0;
+    else this.state.currentImageIndex++;
+
+    mainImg.setAttribute(
+      "src",
+      this.state.images[this.state.currentImageIndex]
+    );
   }
 
   nextImg(mainImg) {
@@ -198,7 +266,6 @@ class EcommerceProduct {
         )
     );
   }
-
   previousImg(mainImg) {
     // Check if the image index is last index
     if (this.state.currentImageIndex === 0)
@@ -215,7 +282,7 @@ class EcommerceProduct {
   }
 
   activateProductImg(btn) {
-    if(!btn) return;
+    if (!btn) return;
     let mainContainer = btn.parentElement;
     // Deactivate previous thumbnail
     this.deactivateThumbnail(
@@ -231,7 +298,7 @@ class EcommerceProduct {
   }
 
   activateThumbnail(btn) {
-    if(!btn) return;
+    if (!btn) return;
     btn.querySelector(".thumbnail-img").classList.add("thumbnail-focus");
     btn.classList.add("thumbnail-btn-focus");
     btn.setAttribute("tabindex", "-1");
@@ -242,7 +309,7 @@ class EcommerceProduct {
   }
 
   deactivateThumbnail(btn) {
-    if(!btn) return;
+    if (!btn) return;
     btn.classList.remove("thumbnail-btn-focus");
     btn.setAttribute("tabindex", "0");
     btn.querySelector(".thumbnail-img").classList.remove("thumbnail-focus");

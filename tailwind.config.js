@@ -14,7 +14,9 @@ export default {
     extend: {
       screens: {
         ...screens,
-        desktop: "1440px"
+        mobile: "23.4375rem",
+        tablet: "48rem",
+        desktop: "90rem"
       },
       fontFamily: {
         kumbhsans: ["Kumbh Sans", "sans-serif"]

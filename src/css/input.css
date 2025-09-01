@@ -3,317 +3,315 @@
 @tailwind utilities;
 
 @layer base {
-    :root {
-        --orange: hsl(26, 100%, 55%);
-        --hover-orange: hsl(26, 89%, 65%);
-        --pale-orange: hsl(25, 100%, 94%);
-        --very-dark-blue: hsl(220, 13%, 13%);
-        --dark-grayish-blue: hsl(219, 9%, 45%);
-        --grayish-blue: hsl(220, 14%, 75%);
-        --light-grayish-blue: hsl(223, 64%, 98%);
-        --white: hsl(0, 0%, 100%);
-        --black: hsl(0, 0%, 0%);
-    }
-    @font-face {
-        font-family: "Kumbh Sans";
-        src: url(../fonts/KumbhSans-VariableFont_YOPQ\,wght.ttf) format("truetype");
-        font-weight: 400;
-        font-display: swap;
-        font-style: normal;
-    }
-    @font-face {
-        font-family: "Kumbh Sans";
-        src: url(../fonts/KumbhSans-VariableFont_YOPQ\,wght.ttf) format("truetype");
-        font-weight: 700;
-        font-display: swap;
-        font-style: normal;
-    }
-    body {
-        @apply font-kumbhsans flex flex-col min-h-screen justify-center items-center desktop:gap-4
-    }
-    header {
-        @apply w-full flex justify-between items-center py-6 px-6 desktop:border-b desktop:border-b-grayish-blue;
-    }
-    main, header{ 
-        @apply max-w-6xl
-    }
-    main {
-        @apply flex-grow flex flex-col desktop:grid desktop:grid-cols-2 desktop:items-center
-    }
+  :root {
+    --orange: hsl(26, 100%, 55%);
+    --hover-orange: hsl(26, 89%, 65%);
+    --pale-orange: hsl(25, 100%, 94%);
+    --very-dark-blue: hsl(220, 13%, 13%);
+    --dark-grayish-blue: hsl(219, 9%, 45%);
+    --grayish-blue: hsl(220, 14%, 75%);
+    --light-grayish-blue: hsl(223, 64%, 98%);
+    --white: hsl(0, 0%, 100%);
+    --black: hsl(0, 0%, 0%);
+  }
+  @font-face {
+    font-family: "Kumbh Sans";
+    src: url(../fonts/KumbhSans-VariableFont_YOPQ\wght.ttf) format("truetype");
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Kumbh Sans";
+    src: url(../fonts/KumbhSans-VariableFont_YOPQ\wght.ttf) format("truetype");
+    font-weight: 700;
+    font-display: swap;
+    font-style: normal;
+  }
+  body {
+    @apply font-kumbhsans flex flex-col min-h-screen justify-center items-center desktop:gap-4 bg-light-grayish-blue;
+  }
+  header {
+    @apply w-full flex justify-between items-center py-6 px-6 desktop:border-b desktop:border-b-grayish-blue;
+  }
+  main,
+  header {
+    @apply ~tablet/desktop:~max-w-2xl/6xl;
+  }
+  main {
+    @apply flex-grow flex flex-col desktop:grid desktop:grid-cols-2 desktop:items-center;
+  }
 
-    /* JS fallback */
-    dialog {
-        @apply hidden;
-    }
-    dialog[open] {
-        @apply block
-    }
+  /* JS fallback */
+  dialog {
+    @apply hidden;
+  }
+  dialog[open] {
+    @apply block;
+  }
 }
 
 @layer components {
-    /* Header layout */
-    .header-left {
-        @apply flex gap-4 items-end desktop:gap-12
-    }
-    .logo {
-        @apply w-36
-    }
-    .header-right {
-        @apply flex items-center gap-6 desktop:gap-12
-    }
-    .profile-pic {
-        @apply h-6 w-6 desktop:h-12 desktop:w-12
-    }
-    
-    /* Images layout */
-    .image-container {
-        @apply relative overflow-hidden h-72 desktop:hidden
-    }
-    .image-container .main-img {
-        @apply object-center object-cover w-full h-full 
-    }
-    .desktop-image-container {
-        @apply hidden desktop:grid desktop:grid-rows-[auto_auto] desktop:grid-cols-4 desktop:max-w-full desktop:px-20 desktop:gap-6
-    }
-    .desktop-image-container .main-img {
-        @apply w-full
-    }
-    .main-img-btn {
-        @apply col-span-4 outline-none  
-    }
-    .desktop-image-container img {
-        @apply max-w-full h-auto rounded-lg 
-    }
-    
-    /* Content layout */
-    .content {
-        @apply flex flex-col p-6 flex-grow justify-between desktop:px-14 desktop:gap-6
-    }
-    .content > h1 {
-        @apply desktop:mb-4
-    }
-    .price-container {
-        @apply grid grid-cols-[auto_1fr_auto] desktop:grid-cols-[auto_1fr] items-center gap-x-3 desktop:gap-y-3
-    }
-    .cart-form {
-        @apply flex flex-col gap-4 desktop:grid desktop:grid-cols-[1fr_2fr]
-    }
-    .order-num-container {
-        @apply relative
-    }
-    .order-num-input {
-        @apply text-center w-full font-bold py-4 bg-light-grayish-blue cursor-default text-very-dark-blue rounded-lg h-full outline-none
-    }
+  /* Header layout */
+  .header-left {
+    @apply flex items-end ~mobile/tablet:~gap-4/8 desktop:~gap-12;
+  }
+  .logo {
+    @apply w-36;
+  }
+  .header-right {
+    @apply flex items-center ~mobile/tablet:~gap-6/8 desktop:~gap-12;
+  }
+  .profile-pic {
+    @apply ~mobile/desktop:~h-6/12 ~mobile/desktop:~w-6/12;
+  }
 
-    /* Lightbox dialog layout*/
-    .lightbox-dialog {
-        @apply max-w-xl bg-transparent overflow-visible
-    }
-    .lightbox-content {
-        @apply h-full flex flex-col gap-4 items-end
-    }
-    .lightbox-content .desktop-image-container {
-        @apply px-0
-    }
-    .lightbox-content .desktop-image-container .image-container {
-        @apply col-span-4 h-auto overflow-visible
-    }
-    .desktop-image-container .image-container .overlay {
-        @apply -inset-x-12
-    }
-    
-    /* Popup cart layout*/
-    .cart-count {
-        @apply absolute text-xs -top-2 bg-orange text-white -right-2 px-2 rounded-full font-bold
-    }
-    .cart-popover {
-        @apply desktop:relative
-    }
-    .cart-body {
-        @apply fixed z-30 bg-white left-2 right-2 top-20 text-left rounded-lg flex flex-col shadow-lg desktop:absolute desktop:w-96 desktop:top-10 desktop:left-1/2 desktop:-translate-x-1/2 desktop:-right-8
-    }
-    .cart-body > h2 {
-        @apply font-bold px-6 py-6 border-b-light-grayish-blue border-b-2 text-very-dark-blue
-    }
-    .cart-products {
-        @apply flex flex-col items-center justify-center flex-grow gap-6 p-6
-    }
-    .cart-product {
-        @apply flex flex-col
-    }
-    .product-content {
-        @apply grid grid-cols-[auto_1fr_auto] grid-rows-[auto_auto] gap-x-4 text-dark-grayish-blue w-full
-    }
-    .thumbnail {
-        @apply row-span-2 rounded
-    }
+  /* Menus */
+  .menu-content {
+    @apply max-h-full p-6 flex flex-col gap-14;
+  }
+  .nav-links {
+    @apply flex flex-col gap-4 desktop:gap-6 desktop:flex-row;
+  }
+  .mobile-menu {
+    @apply absolute left-0 right-32 tablet:right-64 w-auto bg-white z-50 h-screen m-0 max-h-screen;
+  }
+  .desktop-menu {
+    @apply hidden desktop:flex;
+  }
 
-    /* Buttons */
-    .cart-btn {
-        @apply relative flex-grow outline-none rounded-full
-    }
-    /* TODO: Hover cart button and show the list of items */
-    .profile-pic-btn {
-        @apply rounded-full border-2 outline-none
-    }
-    .lightbox-close-btn {
-        @apply text-white outline-none
-    }
-    .order-num-btn {
-        @apply px-2 outline-none
-    }
-    .img-btn {
-        @apply z-20 rounded-full bg-white h-9 w-9 flex items-center justify-center outline-none
-    }
-    .img-btn > img {
-        @apply h-3
-    }
-    .lightbox-content .img-btn {
-        @apply h-16 w-16
-    }
-    .lightbox-content .img-btn > svg {
-        @apply h-5
-    }
-    .primary-btn {
-        @apply bg-orange w-full flex items-center justify-center py-5 rounded-lg font-bold gap-4 text-very-dark-blue outline-none
-    }
-    .delete-btn {
-        @apply row-span-2 outline-none
-    }
-    .mobile-menu-btn {
-        @apply desktop:hidden outline-none
-    }
-    .thumbnail-btn {
-        @apply rounded-lg border-2 border-transparent outline-none  
-    }
+  /* Images layout */
+  .image-container {
+    @apply relative overflow-hidden h-72 tablet:hidden;
+  }
+  .image-container .main-img {
+    @apply object-center object-cover w-full h-full;
+  }
+  .desktop-image-container {
+    @apply hidden tablet:grid tablet:grid-cols-[auto_auto] tablet:grid-rows-4 tablet:h-[33.125rem] desktop:grid-rows-[auto_auto] desktop:grid-cols-4 tablet:max-w-full desktop:px-20 tablet:gap-6;
+  }
+  .main-img-btn {
+    @apply desktop:col-span-4 tablet:row-span-4 outline-none;
+  }
+  .desktop-image-container img {
+    @apply w-full h-full rounded-lg object-cover;
+  }
 
-    /* Menus */
-    .menu-content {
-        @apply max-h-full p-6 flex flex-col gap-14
-    }
-    .nav-links {
-        @apply flex flex-col gap-4 desktop:flex-row desktop:gap-6
-    }
-    .mobile-menu {
-        @apply absolute left-0 right-32 w-auto bg-white z-50 h-screen m-0 max-h-screen
-    }
-    .desktop-menu {
-        @apply hidden desktop:flex
-    }
+  /* Content layout */
+  .content {
+    @apply flex flex-col p-6 flex-grow desktop:px-14 ~mobile/desktop:~gap-5/6;
+  }
+  .content > h1 {
+    @apply desktop:mb-4;
+  }
+  .price-container {
+    @apply grid grid-cols-[auto_1fr_auto] desktop:grid-cols-[auto_1fr] items-center gap-x-3 desktop:gap-y-3;
+  }
+  .cart-form {
+    @apply flex flex-col gap-4 desktop:grid desktop:grid-cols-[1fr_2fr];
+  }
+  .order-num-container {
+    @apply relative;
+  }
+  .order-num-input {
+    @apply text-center w-full font-bold py-4 bg-light-grayish-blue cursor-default text-very-dark-blue rounded-lg h-full outline-none;
+  }
 
-    /* Text styles */
-    .product-content .price {
-        @apply text-base text-dark-grayish-blue font-normal
-    }
-    .product-content .total {
-        @apply font-bold text-very-dark-blue
-    }
-    .product-company {
-        @apply uppercase text-xs font-bold text-dark-grayish-blue tracking-widest desktop:text-sm desktop:tracking-[.15rem]
-    }
-    .product-name {
-        @apply font-bold text-[1.60rem] leading-7 text-very-dark-blue desktop:text-5xl
-    }
-    .product-description {
-        @apply text-dark-grayish-blue text-[15px] desktop:text-base
-    }
-    .price {
-        @apply font-bold text-3xl text-very-dark-blue
-    }
-    .discount {
-        @apply bg-very-dark-blue text-white w-fit h-fit text-center rounded-lg font-bold py-0.5 px-2
-    }
-    .previous-price {
-        @apply font-bold text-dark-grayish-blue line-through
-    }
-    .nav-link {
-        @apply font-bold desktop:font-normal desktop:text-dark-grayish-blue relative outline-none
-    }
+  /* Lightbox dialog layout*/
+  .lightbox-dialog[open] {
+    @apply fixed inset-0 flex items-center justify-center max-w-xl bg-transparent overflow-visible h-full;
+  }
+  .lightbox-content {
+    @apply h-full flex flex-col gap-4 items-end justify-center;
+  }
+  .lightbox-content .desktop-image-container {
+    @apply px-0 tablet:grid-rows-[auto_auto] tablet:grid-cols-4 tablet:max-w-full h-auto;
+  }
+  .lightbox-content .desktop-image-container .image-container {
+    @apply col-span-4 h-auto overflow-visible;
+  }
+  .desktop-image-container .image-container .overlay {
+    @apply -inset-x-12;
+  }
+
+  /* Popup cart layout*/
+  .cart-count {
+    @apply absolute text-xs -top-2 bg-orange text-white -right-2 px-2 rounded-full font-bold;
+  }
+  .cart-popover {
+    @apply desktop:relative;
+  }
+  .cart-body {
+    @apply fixed z-30 bg-white left-2 right-2 top-20 text-left rounded-lg flex flex-col shadow-lg tablet:left-20 tablet:right-20 desktop:absolute desktop:w-96 desktop:top-10 desktop:left-1/2 desktop:-translate-x-1/2 desktop:-right-8;
+  }
+  .cart-body > h2 {
+    @apply font-bold px-6 py-6 border-b-light-grayish-blue border-b-2 text-very-dark-blue;
+  }
+  .cart-products {
+    @apply flex flex-col items-center justify-center flex-grow gap-6 p-6;
+  }
+  .cart-product {
+    @apply flex flex-col;
+  }
+  .product-content {
+    @apply grid grid-cols-[auto_1fr_auto] grid-rows-[auto_auto] gap-x-4 text-dark-grayish-blue w-full;
+  }
+  .thumbnail {
+    @apply row-span-2 rounded;
+  }
+
+  /* Buttons */
+  .cart-btn {
+    @apply relative flex-grow outline-none rounded-full;
+  }
+  /* TODO: Hover cart button and show the list of items */
+  .profile-pic-btn {
+    @apply rounded-full border-2 outline-none;
+  }
+  .lightbox-close-btn {
+    @apply text-white outline-none;
+  }
+  .order-num-btn {
+    @apply px-2 outline-none;
+  }
+  .img-btn {
+    @apply z-20 rounded-full bg-white h-9 w-9 flex items-center justify-center outline-none;
+  }
+  .img-btn > img {
+    @apply h-3;
+  }
+  .lightbox-content .img-btn {
+    @apply h-16 w-16;
+  }
+  .lightbox-content .img-btn > svg {
+    @apply h-5;
+  }
+  .primary-btn {
+    @apply bg-orange w-full flex items-center justify-center py-5 rounded-lg font-bold gap-4 text-very-dark-blue outline-none;
+  }
+  .delete-btn {
+    @apply row-span-2 outline-none;
+  }
+  .mobile-menu-btn {
+    @apply desktop:hidden outline-none;
+  }
+  .thumbnail-btn {
+    @apply rounded-lg border-2 border-transparent outline-none;
+  }
+
+  /* Text styles */
+  .product-content .price {
+    @apply text-base text-dark-grayish-blue font-normal;
+  }
+  .product-content .total {
+    @apply font-bold text-very-dark-blue;
+  }
+  .product-company {
+    @apply uppercase font-bold text-dark-grayish-blue ~mobile/tablet:~text-xs/sm ~mobile/tablet:~tracking-widest/[.15rem];
+  }
+  .product-name {
+    @apply font-bold leading-7 text-very-dark-blue ~mobile/tablet:~text-[1.60rem]/4xl desktop:~text-5xl;
+  }
+  .product-description {
+    @apply text-dark-grayish-blue ~mobile/desktop:~text-[0.9375rem]/base;
+  }
+  .price {
+    @apply font-bold text-3xl text-very-dark-blue;
+  }
+  .discount {
+    @apply bg-very-dark-blue text-white w-fit h-fit text-center rounded-lg font-bold py-0.5 px-2;
+  }
+  .previous-price {
+    @apply font-bold text-dark-grayish-blue line-through;
+  }
+  .nav-link {
+    @apply font-bold desktop:font-normal desktop:text-dark-grayish-blue relative outline-none;
+  }
 }
 
 @layer utilities {
-    .empty-card-msg {
-       @apply text-dark-grayish-blue font-bold py-14
-    }
+  .empty-card-msg {
+    @apply text-dark-grayish-blue font-bold py-14;
+  }
 
-    /* Overlay for mobile menu */
-    .overlay {
-        @apply absolute inset-0 flex items-center justify-between px-4 pointer-events-none
-    }
-    .overlay > * {
-        @apply pointer-events-auto
-    }
+  /* Overlay for mobile menu */
+  .overlay {
+    @apply absolute inset-0 flex items-center justify-between px-4 pointer-events-none;
+  }
+  .overlay > * {
+    @apply pointer-events-auto;
+  }
 
-    /* Hide the spin component of input  */
-    .order-num-input::-webkit-outer-spin-button,
-    .order-num-input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-    .order-num-input[type="number"] {
-        appearance: textfield;
-    }
+  /* Hide the spin component of input  */
+  .order-num-input::-webkit-outer-spin-button,
+  .order-num-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .order-num-input[type="number"] {
+    appearance: textfield;
+  }
 
-    /* Thumbnail state */
-    .thumbnail-btn:focus img,
-    .thumbnail-btn:hover img,
-    .main-img-btn:focus img,
-    .main-img-btn:hover img {
-        @apply opacity-20
-    }
-    .thumbnail-btn-focus {
-        @apply border-orange bg-white
-    }
-    .thumbnail-focus {
-        @apply opacity-20
-    }
+  /* Thumbnail state */
+  .thumbnail-btn:focus img,
+  .thumbnail-btn:hover img,
+  .main-img-btn:focus img,
+  .main-img-btn:hover img {
+    @apply opacity-20;
+  }
+  .thumbnail-btn-focus {
+    @apply border-orange bg-white;
+  }
+  .thumbnail-focus {
+    @apply opacity-20;
+  }
 
-    /* Button state */
-    .primary-btn:focus,
-    .primary-btn:hover {
-        @apply bg-hover-orange
-    }
-    .order-num-btn:focus,
-    .order-num-btn:hover{
-        @apply opacity-50
-    }
-    .profile-pic-btn:hover,
-    .profile-pic-btn:focus {
-        @apply border-orange
-    }
-    .thumbnail-btn:focus,
-    .thumbnail-btn:hover {
-        @apply bg-white
-    }
-    .img-btn:hover svg,
-    .img-btn:focus svg {
-        @apply text-orange
-    }
-    .lightbox-close-btn:hover,
-    .lightbox-close-btn:focus {
-        @apply text-orange
-    }
+  /* Button state */
+  .primary-btn:focus,
+  .primary-btn:hover {
+    @apply bg-hover-orange;
+  }
+  .order-num-btn:focus,
+  .order-num-btn:hover {
+    @apply opacity-50;
+  }
+  .profile-pic-btn:hover,
+  .profile-pic-btn:focus {
+    @apply border-orange;
+  }
+  .thumbnail-btn:focus,
+  .thumbnail-btn:hover {
+    @apply bg-white;
+  }
+  .img-btn:hover svg,
+  .img-btn:focus svg {
+    @apply text-orange;
+  }
+  .lightbox-close-btn:hover,
+  .lightbox-close-btn:focus {
+    @apply text-orange;
+  }
 
-    /* Navigation links hover state */
-    .nav-link::before {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 4px;
-        background: orange;
-        top: 280%;
-        transform: scaleX(0);
-        transform-origin: center;
-        transition: transform .5s;
-    }
-    .nav-link:hover::before,
-    .nav-link:focus::before {
-        transform: scaleX(1);
-        transform-origin: center;
-    }
+  /* Navigation links hover state */
+  .desktop-menu .nav-link::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: orange;
+    top: 280%;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.5s;
+  }
+  .desktop-menu .nav-link:hover::before,
+  .desktop-menu .nav-link:focus::before {
+    transform: scaleX(1);
+    transform-origin: center;
+  }
 
-    /* Overlay when dialog open */
-    dialog::backdrop {
-        background: rgba(0,0,0,0.5);
-    }
+  /* Overlay when dialog open */
+  dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
 }
