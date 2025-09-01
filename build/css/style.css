@@ -736,8 +736,10 @@ dialog[open] {
   width: 100%;
 }
 
-.desktop-image-container .main-img-btn {
+.main-img-btn {
   grid-column: span 4 / span 4;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 .desktop-image-container img {
@@ -818,7 +820,8 @@ dialog[open] {
 /* Lightbox dialog layout*/
 
 .lightbox-dialog {
-  max-width: 42rem;
+  max-width: 36rem;
+  overflow: visible;
   background-color: transparent;
 }
 
@@ -826,11 +829,13 @@ dialog[open] {
   display: flex;
   height: 100%;
   flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
 }
 
-.lightbox-close-btn {
-  display: flex;
-  justify-content: flex-end;
+.lightbox-content .desktop-image-container {
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 .lightbox-content .desktop-image-container .image-container {
@@ -840,8 +845,8 @@ dialog[open] {
 }
 
 .desktop-image-container .image-container .overlay {
-  left: -2rem;
-  right: -2rem;
+  left: -3rem;
+  right: -3rem;
 }
 
 /* Popup cart layout*/
@@ -954,9 +959,17 @@ dialog[open] {
   outline-offset: 2px;
 }
 
+.lightbox-close-btn {
+  color: var(--white);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
 .order-num-btn {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 .img-btn {
@@ -968,10 +981,21 @@ dialog[open] {
   justify-content: center;
   border-radius: 9999px;
   background-color: var(--white);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 .img-btn > img {
   height: 0.75rem;
+}
+
+.lightbox-content .img-btn {
+  height: 4rem;
+  width: 4rem;
+}
+
+.lightbox-content .img-btn > svg {
+  height: 1.25rem;
 }
 
 .primary-btn {
@@ -986,10 +1010,19 @@ dialog[open] {
   padding-bottom: 1.25rem;
   font-weight: 700;
   color: var(--very-dark-blue);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 .delete-btn {
   grid-row: span 2 / span 2;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.mobile-menu-btn {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 @media (min-width: 1440px) {
@@ -1002,6 +1035,8 @@ dialog[open] {
   border-radius: 0.5rem;
   border-width: 2px;
   border-color: transparent;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 /* Menus */
@@ -1173,9 +1208,9 @@ dialog[open] {
   inset: 0px;
 }
 
-.-inset-x-8 {
-  left: -2rem;
-  right: -2rem;
+.-inset-x-12 {
+  left: -3rem;
+  right: -3rem;
 }
 
 .-right-2 {
@@ -1250,8 +1285,16 @@ dialog[open] {
   display: none;
 }
 
+.h-16 {
+  height: 4rem;
+}
+
 .h-3 {
   height: 0.75rem;
+}
+
+.h-5 {
+  height: 1.25rem;
 }
 
 .h-6 {
@@ -1295,6 +1338,10 @@ dialog[open] {
   min-height: 100vh;
 }
 
+.w-16 {
+  width: 4rem;
+}
+
 .w-36 {
   width: 9rem;
 }
@@ -1320,16 +1367,16 @@ dialog[open] {
   width: 100%;
 }
 
-.max-w-2xl {
-  max-width: 42rem;
-}
-
 .max-w-6xl {
   max-width: 72rem;
 }
 
 .max-w-full {
   max-width: 100%;
+}
+
+.max-w-xl {
+  max-width: 36rem;
 }
 
 .flex-grow {
@@ -1362,10 +1409,6 @@ dialog[open] {
 
 .items-center {
   align-items: center;
-}
-
-.justify-end {
-  justify-content: flex-end;
 }
 
 .justify-center {
@@ -1476,6 +1519,11 @@ dialog[open] {
   padding: 1.5rem;
 }
 
+.px-0 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -1580,6 +1628,10 @@ dialog[open] {
   color: var(--dark-grayish-blue);
 }
 
+.text-orange {
+  color: var(--orange);
+}
+
 .text-very-dark-blue {
   color: var(--very-dark-blue);
 }
@@ -1660,7 +1712,9 @@ dialog[open] {
 /* Thumbnail state */
 
 .thumbnail-btn:focus img,
-    .thumbnail-btn:hover img {
+    .thumbnail-btn:hover img,
+    .main-img-btn:focus img,
+    .main-img-btn:hover img {
   opacity: 0.2;
 }
 
@@ -1695,6 +1749,16 @@ dialog[open] {
   background-color: var(--white);
 }
 
+.img-btn:hover svg,
+    .img-btn:focus svg {
+  color: var(--orange);
+}
+
+.lightbox-close-btn:hover,
+    .lightbox-close-btn:focus {
+  color: var(--orange);
+}
+
 /* Navigation links hover state */
 
 .nav-link::before {
@@ -1703,7 +1767,7 @@ dialog[open] {
   width: 100%;
   height: 4px;
   background: orange;
-  top: 270%;
+  top: 280%;
   transform: scaleX(0);
   transform-origin: center;
   transition: transform .5s;

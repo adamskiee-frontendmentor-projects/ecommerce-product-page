@@ -78,8 +78,8 @@
     .desktop-image-container .main-img {
         @apply w-full
     }
-    .desktop-image-container .main-img-btn {
-        @apply col-span-4
+    .main-img-btn {
+        @apply col-span-4 outline-none  
     }
     .desktop-image-container img {
         @apply max-w-full h-auto rounded-lg 
@@ -107,19 +107,19 @@
 
     /* Lightbox dialog layout*/
     .lightbox-dialog {
-        @apply max-w-2xl bg-transparent
+        @apply max-w-xl bg-transparent overflow-visible
     }
     .lightbox-content {
-        @apply h-full flex flex-col
+        @apply h-full flex flex-col gap-4 items-end
     }
-    .lightbox-close-btn {
-        @apply flex justify-end
+    .lightbox-content .desktop-image-container {
+        @apply px-0
     }
     .lightbox-content .desktop-image-container .image-container {
         @apply col-span-4 h-auto overflow-visible
     }
     .desktop-image-container .image-container .overlay {
-        @apply -inset-x-8
+        @apply -inset-x-12
     }
     
     /* Popup cart layout*/
@@ -156,27 +156,35 @@
     .profile-pic-btn {
         @apply rounded-full border-2 outline-none
     }
-    
+    .lightbox-close-btn {
+        @apply text-white outline-none
+    }
     .order-num-btn {
-        @apply px-2 
+        @apply px-2 outline-none
     }
     .img-btn {
-        @apply z-20 rounded-full bg-white h-9 w-9 flex items-center justify-center
+        @apply z-20 rounded-full bg-white h-9 w-9 flex items-center justify-center outline-none
     }
     .img-btn > img {
         @apply h-3
     }
+    .lightbox-content .img-btn {
+        @apply h-16 w-16
+    }
+    .lightbox-content .img-btn > svg {
+        @apply h-5
+    }
     .primary-btn {
-        @apply bg-orange w-full flex items-center justify-center py-5 rounded-lg font-bold gap-4 text-very-dark-blue 
+        @apply bg-orange w-full flex items-center justify-center py-5 rounded-lg font-bold gap-4 text-very-dark-blue outline-none
     }
     .delete-btn {
-        @apply row-span-2
+        @apply row-span-2 outline-none
     }
     .mobile-menu-btn {
-        @apply desktop:hidden
+        @apply desktop:hidden outline-none
     }
     .thumbnail-btn {
-        @apply rounded-lg border-2 border-transparent
+        @apply rounded-lg border-2 border-transparent outline-none  
     }
 
     /* Menus */
@@ -248,7 +256,9 @@
 
     /* Thumbnail state */
     .thumbnail-btn:focus img,
-    .thumbnail-btn:hover img {
+    .thumbnail-btn:hover img,
+    .main-img-btn:focus img,
+    .main-img-btn:hover img {
         @apply opacity-20
     }
     .thumbnail-btn-focus {
@@ -275,6 +285,14 @@
     .thumbnail-btn:hover {
         @apply bg-white
     }
+    .img-btn:hover svg,
+    .img-btn:focus svg {
+        @apply text-orange
+    }
+    .lightbox-close-btn:hover,
+    .lightbox-close-btn:focus {
+        @apply text-orange
+    }
 
     /* Navigation links hover state */
     .nav-link::before {
@@ -283,7 +301,7 @@
         width: 100%;
         height: 4px;
         background: orange;
-        top: 270%;
+        top: 280%;
         transform: scaleX(0);
         transform-origin: center;
         transition: transform .5s;
