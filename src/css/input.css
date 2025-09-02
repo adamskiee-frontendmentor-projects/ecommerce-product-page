@@ -81,6 +81,9 @@
   }
 
   /* Images layout */
+  .img-section {
+    @apply h-full
+  }
   .image-container {
     @apply relative overflow-hidden h-72 tablet:hidden;
   }
@@ -88,18 +91,21 @@
     @apply object-center object-cover w-full h-full;
   }
   .desktop-image-container {
-    @apply hidden tablet:grid tablet:grid-cols-[auto_auto] tablet:grid-rows-4 tablet:h-[33.125rem] desktop:grid-rows-[auto_auto] desktop:grid-cols-4 tablet:max-w-full desktop:px-20 tablet:gap-6;
+    @apply hidden tablet:grid tablet:grid-cols-[auto_auto] tablet:grid-rows-4 desktop:grid-rows-[auto_auto] desktop:grid-cols-4 desktop:px-20 desktop:gap-4 tablet:gap-y-4 tablet:max-h-[52vh] tablet:justify-center;
   }
   .main-img-btn {
     @apply desktop:col-span-4 tablet:row-span-4 outline-none;
   }
+  .thumbnail-img {
+    @apply w-full h-full
+  }
   .desktop-image-container img {
-    @apply w-full h-full rounded-lg object-cover;
+    @apply w-full h-full rounded-lg object-cover aspect-square;
   }
 
   /* Content layout */
   .content {
-    @apply flex flex-col p-6 flex-grow desktop:px-14 ~mobile/desktop:~gap-5/6;
+    @apply flex flex-col p-6 flex-grow h-full desktop:px-14 ~mobile/desktop:~gap-5/6;
   }
   .content > h1 {
     @apply desktop:mb-4;
@@ -119,16 +125,16 @@
 
   /* Lightbox dialog layout*/
   .lightbox-dialog[open] {
-    @apply fixed inset-0 flex items-center justify-center max-w-xl bg-transparent overflow-visible h-full;
+    @apply fixed z-20 inset-0 flex items-center justify-center tablet:max-w-[70vw] desktop:max-w-[30vw] bg-transparent overflow-visible max-h-screen;
   }
   .lightbox-content {
-    @apply h-full flex flex-col gap-4 items-end justify-center;
+    @apply max-h-full w-full flex flex-col gap-4 items-end justify-center;
   }
   .lightbox-content .desktop-image-container {
-    @apply px-0 tablet:grid-rows-[auto_auto] tablet:grid-cols-4 tablet:max-w-full h-auto;
+    @apply px-0 tablet:grid-rows-[auto_auto] tablet:grid-cols-4 tablet:max-w-full w-auto max-h-[90vh] h-auto tablet:gap-x-4;
   }
   .lightbox-content .desktop-image-container .image-container {
-    @apply col-span-4 h-auto overflow-visible;
+    @apply col-span-full desktop:h-auto overflow-visible;
   }
   .desktop-image-container .image-container .overlay {
     @apply -inset-x-12;
@@ -195,7 +201,7 @@
     @apply desktop:hidden outline-none;
   }
   .thumbnail-btn {
-    @apply rounded-lg border-2 border-transparent outline-none;
+    @apply rounded-lg border-2 border-transparent outline-none aspect-square h-full tablet:justify-self-center;
   }
 
   /* Text styles */
